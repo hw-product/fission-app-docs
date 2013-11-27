@@ -9,6 +9,7 @@ TODO: describe fission job workflow + dependencies
 ## Table of Contents
 
 * [Carnivore (message consumer)](carnivore.md)
+* [Fission Config (config file)](fission-config.md)
 * [Fission (base utils)](fission.md)
 * [Fission App (front-end)](fission-app.md)
 * [Fission REST API (worker API)](fission-rest-api.md)
