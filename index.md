@@ -85,17 +85,21 @@ _NOTE: The `.packager` configuration file is made up of four (4) primary section
 
 #### Target (`target`) {#packager-target}
 
-|| Type | section
-|| Required | false
-|| Default value(s) | {'platform': 'ubuntu', 'version': '12.04', 'package': 'deb', 'arch': 'amd64'}
+|                  |           |
+|------------------|-----------|
+| Type             | section   |
+| Required         | false     |
+| Default value(s) | {'platform': 'ubuntu', 'version': '12.04', 'package': 'deb', 'arch': 'amd64'} |
 
 The `target` section describes the platform (i.e. operating system) the package(s) is/are being built for.
 
 ##### Platform (`platform`) {#packager-target-platform}
 
-|| Type | directive
-|| Required | false
-|| Default value | `ubuntu`
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | false     |
+| Default value    | `ubuntu`  |
 
 The `platform` directive describes the name of the linux-distribution. Available platform options are as follows: 
 
@@ -105,9 +109,11 @@ The `platform` directive describes the name of the linux-distribution. Available
 
 ##### Version (`version`) {#packager-target-version}
 
-|| Type | directive
-|| Required | false
-|| Default value | `12.04`
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | false     |
+| Default value    | `12.04`   |
 
 The `version` directive describes the `platform` (i.e. linux distribution) version number. Available version numbers are as follows: 
 
@@ -124,9 +130,11 @@ _NOTE: the default value of '12.04' is not dynamic. In other words, it is always
 
 ##### Package (`package`) {#packager-target-package}
 
-|| Type | directive
-|| Required | false
-|| Default value | `deb`
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | false     |
+| Default value    | `deb`     |
 
 The `package` directive describes the package format. Available package formats are as follows:
 
@@ -137,9 +145,11 @@ _NOTE: this option is currently unused as the values are inferred by the `platfo
 
 ##### Architecture (`arch`) {#packager-target-arch}
 
-|| Type | directive
-|| Required | false
-|| Default value | `amd64`
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | false     |
+| Default value    | `amd64`   |
 
 The `arch` directive describes the target system architecture (i.e. 64-bit or 32-bit). Available options are as follows:
 
@@ -154,9 +164,11 @@ In the Packager configuration file, the `target` section is a little bit differe
 
 #### Source (`source`) {#packager-source}
 
-|| Type | section
-|| Required | true/auto
-|| Default value | n/a
+|                  |           |
+|------------------|-----------|
+| Type             | section   |
+| Required         | true/auto |
+| Default value    | n/a       |
 
 The `source` section describes where the source code that will be used to create the packages is located. 
 
@@ -164,9 +176,11 @@ _NOTE: the source section is automatically provided for root/top-level packages 
 
 ##### Type (`type`)
 
-|| Type | directive
-|| Required | false
-|| Default value | n/a
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | false     |
+| Default value    | n/a       |
 
 The `type` directive describes what type of source endpoint Packager needs to interact with. Available options are as follows: 
 
@@ -175,27 +189,31 @@ The `type` directive describes what type of source endpoint Packager needs to in
 
 ##### Location (`location`)
 
-|| Type | directive
-|| Required | true (for `git` source types)
-|| Default value | n/a
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | true (for `git` source types) |
+| Default value    | n/a       |
 
 The `location` direcetive describes the URI for non-`remote` source types (e.g. `git`). Available options are any valid git endpoint (i.e. http/https, or git/ssh endpoints). 
 
 ##### Reference (`reference`)
 
-|               |          |
-|---------------|----------|
-| Type | directive |
-| Required | false |
-| Default value | 'master' |
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | false     |
+| Default value    | 'master'  |
 
 The `reference` directive describes the source code repository (i.e. git) reference containing the desired changeset (e.g. a specific branch, etc). Available options are any valid git reference (e.g. SHA checksum, branch name, etc). 
 
 ##### Remote File (`remote_file`)
 
-|| Type | directive
-|| Required | true (for `remote` source types)
-|| Default value | n/a
+|                  |           |
+|------------------|-----------|
+| Type             | directive |
+| Required         | true (for `remote` source types) |
+| Default value    | n/a       |
 
 The `remote_file` directive describes a URL where source code can be located. Valid values are any URL pointing to a gzip tarball of source code.
 
