@@ -2,7 +2,30 @@
 title: Packager Documentation
 ---
 
-## Getting Started
+## Table of Contents
+
+* [Getting Started](#getting-started)
+* [Integration Filters](#integration-filters)
+  * [Default](#integration-filters-default)
+  * [Branch-based integration filtering](#integration-filters-branch)
+  * [Tag-based integration filtering](#integration-filters-tag)
+* [The .packager file](#packager-file)
+  * [JSON](#packager-file-json)
+    * [EXAMPLE](#packager-json-example)
+    * [Target](#packager-target)
+      * [Platform](#packager-target-platform)
+      * [Version](#packager-target-version)
+      * [Package](#packager-target-package)
+      * [Architecture](#packager-target-arch)
+    * [Package Description](#packager-package-description)
+    * [Source](#packager-source)
+      * [Type](#packager-source-type)
+      * [Location](#packager-source-location)
+      * [Reference](#packager-source-reference)
+      * [Remote File](#packager-source-remote-file)
+  * [DSL](#packager-file-dsl)
+
+## Getting Started {#getting-started}
 
 To get started using the Packager service, the first thing you need to do is enable a repository to notify Packager when a commit is pushed. 
 
@@ -10,19 +33,19 @@ To get started using the Packager service, the first thing you need to do is ena
 
 Rather than allow every commit on every branch of a repository to trigger package builds, Packager provides integration filters to control which commits should generate packages. These filters can be configured from the Packager dashboard, or directly from the GitHub repository (manually editing the ServiceHook URL). 
 
-### Default
+### Default {#integration-filters-default}
 
 By default, Packager will act on commits made to the 'master' branch. 
 
     http://api.packager.co:9876/github-commit
 
-### Branch-based integration filtering
+### Branch-based integration filtering {#integration-filters-branch}
 
 Packager can optionally filter on a specific branch (this is essentially how the default filtering works). 
 
     http://api.packager.co:9876/github-commit?filter=<branch name>
 
-### Tag-based integration filtering
+### Tag-based integration filtering {#integration-filters-tag}
 
 Packager can optionally filter on tagged commits (regardless of which branch these are committed to). 
 
@@ -30,15 +53,15 @@ Packager can optionally filter on tagged commits (regardless of which branch the
 
 NOTE: branch-based and tag-based filtering cannot be used together. 
 
-## The .packager File
+## The .packager File {#packager-file}
 
 Packager is controlled by instructions described in a `.packager` configuration file in the root directory of your source code repository. This configuration file can be written in JSON (i.e. a Ruby `Hash`) or using a simple DSL (which is used to generate a `Hash` / JSON). We'll describe the available configuration file contents first, then we'll explain how to use the DSL to simplify generating more complex configuration files. 
 
-### JSON
+### JSON {#packager-file-json}
 
 _NOTE: The `.packager` configuration file is made up of four (4) primary sections, each containing a variety of "directives". Section and directive names are [snake cased](http://en.wikipedia.org/wiki/Snake_case), and always case-sensitive (i.e. lower-case, as inferred by snake casing)._
 
-#### Example
+#### Example {#json-example}
 
 ~~~ json
 {
@@ -60,7 +83,7 @@ _NOTE: The `.packager` configuration file is made up of four (4) primary section
 }
 ~~~
 
-#### Target (`target`)
+#### Target (`target`) {#packager-target}
 
 || Type | section
 || Required | false
@@ -68,7 +91,7 @@ _NOTE: The `.packager` configuration file is made up of four (4) primary section
 
 The `target` section describes the platform (i.e. operating system) the package(s) is/are being built for.
 
-##### Platform (`platform`)
+##### Platform (`platform`) {#packager-target-platform}
 
 || Type | directive
 || Required | false
@@ -80,7 +103,7 @@ The `platform` directive describes the name of the linux-distribution. Available
 * `centos`
 * `debian`
 
-##### Version (`version`)
+##### Version (`version`) {#packager-target-version}
 
 || Type | directive
 || Required | false
@@ -99,7 +122,7 @@ The `version` directive describes the `platform` (i.e. linux distribution) versi
 
 _NOTE: the default value of '12.04' is not dynamic. In other words, it is always the default regardless of what the `platform` directive is set to. If a platform other than `ubuntu` is selected, the `version` directive is required._ 
 
-##### Package (`package`)
+##### Package (`package`) {#packager-target-package}
 
 || Type | directive
 || Required | false
@@ -112,7 +135,7 @@ The `package` directive describes the package format. Available package formats 
 
 _NOTE: this option is currently unused as the values are inferred by the `platform` directive; but the `package` directive is scheduled to be introduced to allow for generation of non-system package formats (e.g. jar, gem, etc)._
 
-##### Architecture (`arch`)
+##### Architecture (`arch`) {#packager-target-arch}
 
 || Type | directive
 || Required | false
@@ -125,9 +148,29 @@ The `arch` directive describes the target system architecture (i.e. 64-bit or 32
 
 _NOTE: this option is currently unsupported, but documented here for posterity as 32-bit platforms could be supported in the future._
 
-#### Package Description
+#### Package Description (`source` + `dependencies` + `build` sections) {#package-description}
 
+In the Packager configuration file, the `target` section is a little bit different than the remaining three (3) sections: `source`, `dependencies`, and `build`. These three sections are used collectively to describe a package, and will be referred to through the documentation as the "package description" (this will become more important when we begin to explain how to describe trees of dependent packages). 
 
+#### Source (`source`) {#packager-source}
+
+|| Type | section
+|| Required | true/auto
+|| Default value | n/a
+
+The `source` section describes where the source code that will be used to create the packages is located. 
+
+_NOTE: the source section is automatically provided for root/top-level packages via the GitHub commit payload._
+
+##### Type (`type`)
+
+|| Type | section
+|| Required | false
+|| Default value | n/a
+
+The `type` section describes what type of source endpoint Packager needs to interact with. Available options are as follows: 
+
+* `git` (default)
 
 ### The Packager DSL
 
