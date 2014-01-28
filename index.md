@@ -22,7 +22,7 @@ title: Packager Documentation
       * [Type](#packager-source-type)
       * [Location](#packager-source-location)
       * [Reference](#packager-source-reference)
-      * [Remote File](#packager-source-remote-file)
+      * [Remote](#packager-source-remote)
   * [DSL](#packager-file-dsl)
 
 ## Getting Started {#getting-started}
@@ -164,13 +164,38 @@ _NOTE: the source section is automatically provided for root/top-level packages 
 
 ##### Type (`type`)
 
-|| Type | section
+|| Type | directive
 || Required | false
 || Default value | n/a
 
-The `type` section describes what type of source endpoint Packager needs to interact with. Available options are as follows: 
+The `type` directive describes what type of source endpoint Packager needs to interact with. Available options are as follows: 
 
-* `git` (default)
+* `git`
+* `remote`
+
+##### Location (`location`)
+
+|| Type | directive
+|| Required | true (for `git` source types)
+|| Default value | n/a
+
+The `location` direcetive describes the URI for non-`remote` source types (e.g. `git`). Available options are any valid git endpoint (i.e. http/https, or git/ssh endpoints). 
+
+##### Reference (`reference`)
+
+|| Type | directive
+|| Required | false
+|| Default value | 'master'
+
+The `reference` directive describes the source code repository (i.e. git) reference containing the desired changeset (e.g. a specific branch, etc). Available options are any valid git reference (e.g. SHA checksum, branch name, etc). 
+
+##### Remote File (`remote_file`)
+
+|| Type | directive
+|| Required | true (for `remote` source types)
+|| Default value | n/a
+
+The `remote_file` directive describes a URL where source code can be located. Valid values are any URL pointing to a gzip tarball of source code.
 
 ### The Packager DSL
 
