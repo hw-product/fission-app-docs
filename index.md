@@ -264,7 +264,7 @@ The `build` directive describes a list (Array) of package names required to run 
 
 _NOTE: this is an advanced concept; please proceed with caution._
 
-| package                      |
+| package          |           |
 |------------------|-----------|
 | Type             | section   |
 | Data Type        | Hash      |
