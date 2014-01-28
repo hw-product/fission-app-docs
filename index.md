@@ -43,19 +43,19 @@ _NOTE: The `.packager` configuration file is made up of four (4) primary section
 ~~~ json
 {
   "target": {
-    "platform": 'ubuntu',
-    "version": '12.04',
-    "package": 'deb',
-    "arch": 'amd64'
+    "platform": "ubuntu",
+    "version": "12.04",
+    "package": "deb",
+    "arch": "amd64"
   },
   "dependencies": {
-    "build": ['libpq-dev'],
-    "runtime": ['libpq5']
+    "build": ["libpq-dev"],
+    "runtime": ["libpq5"]
   },
   "build": {
-    "name": 'myapp',
-    "template": 'rails',
-    "install_prefix", '/var/www/myapp'
+    "name": "myapp",
+    "template": "rails",
+    "install_prefix", "/var/www/myapp"
   }
 }
 ~~~
