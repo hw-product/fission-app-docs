@@ -183,11 +183,11 @@ The `location` direcetive describes the URI for non-`remote` source types (e.g. 
 
 ##### Reference (`reference`)
 
-|||
+||               |          |
 ||---------------|----------|
-|| Type | directive
-|| Required | false
-|| Default value | 'master'
+|| Type | directive |
+|| Required | false |
+|| Default value | 'master' |
 
 The `reference` directive describes the source code repository (i.e. git) reference containing the desired changeset (e.g. a specific branch, etc). Available options are any valid git reference (e.g. SHA checksum, branch name, etc). 
 
