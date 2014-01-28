@@ -183,6 +183,8 @@ The `location` direcetive describes the URI for non-`remote` source types (e.g. 
 
 ##### Reference (`reference`)
 
+|||
+||---------------|----------|
 || Type | directive
 || Required | false
 || Default value | 'master'
