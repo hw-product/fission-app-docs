@@ -79,8 +79,6 @@ _NOTE: The `.packager` configuration file is made up of four (4) primary section
   "target": {
     "platform": "ubuntu",
     "version": "12.04",
-    "package": "deb",
-    "arch": "amd64"
   },
   "dependencies": {
     "build": ["libpq-dev"],
