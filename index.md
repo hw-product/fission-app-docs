@@ -66,7 +66,7 @@ NOTE: branch-based and tag-based filtering cannot be used together.
 
 ## The .packager File {#packager-file}
 
-Packager is controlled by instructions described in a `.packager` configuration file in the root directory of your source code repository. This configuration file can be written in JSON (i.e. a Ruby `Hash`) or using a simple DSL (which is used to generate a `Hash` / JSON). We'll describe the available configuration file contents first, then we'll explain how to use the DSL to simplify generating more complex configuration files. 
+Packager is controlled by instructions described in a `.packager` configuration file in the root directory of your source code repository. This configuration file can be written in JSON or using a simple DSL, both of which are used to compile a ruby Hash. We'll describe the available configuration file contents first, then we'll explain how to use the DSL to simplify generating more complex configuration files. 
 
 ### JSON {#packager-file-json}
 
