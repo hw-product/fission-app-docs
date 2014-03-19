@@ -6,5 +6,3 @@ module FissionApp
     end
   end
 end
-
-puts "I AM LOADED YO"
