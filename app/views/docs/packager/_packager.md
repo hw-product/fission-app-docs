@@ -1,78 +1,40 @@
----
-title: Packager Documentation
----
+# Getting Started {#getting-started}
 
-## Table of Contents
+To get started using the Packager service, the first thing you need to do is enable a repository to notify Packager when a commit is pushed.
 
-* [Getting Started](#getting-started)
-* [Integration Filters](#integration-filters)
-  * [Default](#integration-filters-default)
-  * [Branch-based integration filtering](#integration-filters-branch)
-  * [Tag-based integration filtering](#integration-filters-tag)
-* [The .packager file](#packager-file)
-  * [JSON](#packager-file-json)
-    * [EXAMPLE](#packager-json-example)
-    * [Target](#packager-target)
-      * [Platform](#packager-target-platform)
-      * [Version](#packager-target-version)
-      * [Package](#packager-target-package)
-      * [Architecture](#packager-target-arch)
-    * [Package Description](#packager-package-description)
-    * [Source](#packager-source)
-      * [Type](#packager-source-type)
-      * [Location](#packager-source-location)
-      * [Reference](#packager-source-reference)
-      * [Remote File](#packager-source-remote_file)
-    * [Dependencies](#packager-dependencies)
-      * [Build Dependencies](#packager-dependencies-build)
-      * [Runtime Dependencies](#packager-dependencies-runtime)
-      * [Package Dependencies](#packager-dependencies-package)
-    * [Build](#packager-build)
-      * [Name](#packager-build-name)
-      * [Version](#packager-build-version)
-      * [Template](#packager-build-template)
-      * [Commands](#packager-build-commands)
-      * [Configure](#packager-build-configure)
+# Integration Filters
 
-  * [DSL](#packager-file-dsl)
+Rather than allow every commit on every branch of a repository to trigger package builds, Packager provides integration filters to control which commits should generate packages. These filters can be configured from the Packager dashboard, or directly from the GitHub repository (manually editing the ServiceHook URL).
 
-## Getting Started {#getting-started}
+## Default {#integration-filters-default}
 
-To get started using the Packager service, the first thing you need to do is enable a repository to notify Packager when a commit is pushed. 
-
-## Integration Filters
-
-Rather than allow every commit on every branch of a repository to trigger package builds, Packager provides integration filters to control which commits should generate packages. These filters can be configured from the Packager dashboard, or directly from the GitHub repository (manually editing the ServiceHook URL). 
-
-### Default {#integration-filters-default}
-
-By default, Packager will act on commits made to the 'master' branch. 
+By default, Packager will act on commits made to the 'master' branch.
 
     http://api.packager.co:9876/github-commit
 
-### Branch-based integration filtering {#integration-filters-branch}
+## Branch-based integration filtering {#integration-filters-branch}
 
-Packager can optionally filter on a specific branch (this is essentially how the default filtering works). 
+Packager can optionally filter on a specific branch (this is essentially how the default filtering works).
 
     http://api.packager.co:9876/github-commit?filter=<branch name>
 
-### Tag-based integration filtering {#integration-filters-tag}
+## Tag-based integration filtering {#integration-filters-tag}
 
-Packager can optionally filter on tagged commits (regardless of which branch these are committed to). 
+Packager can optionally filter on tagged commits (regardless of which branch these are committed to).
 
     http://api.packager.co:9876/github-commit?tags=true
 
-NOTE: branch-based and tag-based filtering cannot be used together. 
+NOTE: branch-based and tag-based filtering cannot be used together.
 
-## The .packager File {#packager-file}
+# The .packager File {#packager-file}
 
-Packager is controlled by instructions described in a `.packager` configuration file in the root directory of your source code repository. This configuration file can be written in JSON or using a simple DSL, both of which are used to compile a ruby Hash. We'll describe the available configuration file contents first, then we'll explain how to use the DSL to simplify generating more complex configuration files. 
+Packager is controlled by instructions described in a `.packager` configuration file in the root directory of your source code repository. This configuration file can be written in JSON or using a simple DSL, both of which are used to compile a ruby Hash. We'll describe the available configuration file contents first, then we'll explain how to use the DSL to simplify generating more complex configuration files.
 
-### JSON {#packager-file-json}
+## JSON {#packager-file-json}
 
-_NOTE: The `.packager` configuration file is made up of four (4) primary sections, each containing a variety of "directives". Section and directive names are [snake cased](http://en.wikipedia.org/wiki/Snake_case), and always case-sensitive (i.e. lower-case, as inferred by snake casing)._
+_NOTE: The `.packager` configuration file is made up of four (4) primary sections, each containing a variety of "directives". Section and directive names are [snake_cased](http://en.wikipedia.org/wiki/Snake_case), and always case-sensitive (i.e. lower-case, as inferred by snake casing)._
 
-#### Example {#json-example}
+### Example {#json-example}
 
 ~~~ json
 {
@@ -92,7 +54,7 @@ _NOTE: The `.packager` configuration file is made up of four (4) primary section
 }
 ~~~
 
-#### Target (`target`) {#packager-target}
+### Target (`target`) {#packager-target}
 
 |                  |           |
 |------------------|-----------|
@@ -103,7 +65,7 @@ _NOTE: The `.packager` configuration file is made up of four (4) primary section
 
 The `target` section describes the platform (i.e. operating system) the package(s) is/are being built for.
 
-##### Platform (`platform`) {#packager-target-platform}
+#### Platform (`platform`) {#packager-target-platform}
 
 |                  |           |
 |------------------|-----------|
@@ -112,13 +74,13 @@ The `target` section describes the platform (i.e. operating system) the package(
 | Required         | false     |
 | Default value    | `ubuntu`  |
 
-The `platform` directive describes the name of the linux-distribution. Available platform options are as follows: 
+The `platform` directive describes the name of the linux-distribution. Available platform options are as follows:
 
 * `ubuntu` (default)
 * `centos`
 * `debian`
 
-##### Version (`version`) {#packager-target-version}
+#### Version (`version`) {#packager-target-version}
 
 |                  |           |
 |------------------|-----------|
@@ -127,7 +89,7 @@ The `platform` directive describes the name of the linux-distribution. Available
 | Required         | false     |
 | Default value    | `12.04`   |
 
-The `version` directive describes the `platform` (i.e. linux distribution) version number. Available version numbers are as follows: 
+The `version` directive describes the `platform` (i.e. linux distribution) version number. Available version numbers are as follows:
 
 * `12.04` (default; ubuntu)
 * `12.10` (ubuntu)
@@ -138,9 +100,9 @@ The `version` directive describes the `platform` (i.e. linux distribution) versi
 * `6` (centos, debian)
 * `7` (debian)
 
-_NOTE: the default value of '12.04' is not dynamic. In other words, it is always the default regardless of what the `platform` directive is set to. If a platform other than `ubuntu` is selected, the `version` directive is required._ 
+_NOTE: the default value of '12.04' is not dynamic. In other words, it is always the default regardless of what the `platform` directive is set to. If a platform other than `ubuntu` is selected, the `version` directive is required._
 
-##### Package (`package`) {#packager-target-package}
+#### Package (`package`) {#packager-target-package}
 
 |                  |           |
 |------------------|-----------|
@@ -156,7 +118,7 @@ The `package` directive describes the package format. Available package formats 
 
 _NOTE: this option is currently unused as the values are inferred by the `platform` directive; but the `package` directive is scheduled to be introduced to allow for generation of non-system package formats (e.g. jar, gem, etc)._
 
-##### Architecture (`arch`) {#packager-target-arch}
+#### Architecture (`arch`) {#packager-target-arch}
 
 |                  |           |
 |------------------|-----------|
@@ -172,11 +134,11 @@ The `arch` directive describes the target system architecture (i.e. 64-bit or 32
 
 _NOTE: this option is currently unsupported, but documented here for posterity as 32-bit platforms could be supported in the future._
 
-#### Package Description (`source` + `dependencies` + `build` sections) {#package-description}
+### Package Description (`source` + `dependencies` + `build` sections) {#package-description}
 
-In the Packager configuration file, the `target` section is a little bit different than the remaining three (3) sections: `source`, `dependencies`, and `build`. These three sections are used collectively to describe a package, and will be referred to through the documentation as the "package description" (this will become more important when we begin to explain how to describe trees of dependent packages). 
+In the Packager configuration file, the `target` section is a little bit different than the remaining three (3) sections: `source`, `dependencies`, and `build`. These three sections are used collectively to describe a package, and will be referred to through the documentation as the "package description" (this will become more important when we begin to explain how to describe trees of dependent packages).
 
-#### Source (`source`) {#packager-source}
+### Source (`source`) {#packager-source}
 
 |                  |           |
 |------------------|-----------|
@@ -185,11 +147,11 @@ In the Packager configuration file, the `target` section is a little bit differe
 | Required         | true/auto |
 | Default value    | n/a       |
 
-The `source` section describes where the source code that will be used to create the packages is located. 
+The `source` section describes where the source code that will be used to create the packages is located.
 
 _NOTE: the source section is automatically provided for root/top-level packages via the GitHub commit payload._
 
-##### Type (`type`) {#packager-source-type}
+#### Type (`type`) {#packager-source-type}
 
 |                  |           |
 |------------------|-----------|
@@ -198,12 +160,12 @@ _NOTE: the source section is automatically provided for root/top-level packages 
 | Required         | true      |
 | Default value    | git       |
 
-The `type` directive describes what type of source endpoint Packager needs to interact with. Available options are as follows: 
+The `type` directive describes what type of source endpoint Packager needs to interact with. Available options are as follows:
 
 * `git`
 * `remote`
 
-##### Location (`location`) {#packager-source-location}
+#### Location (`location`) {#packager-source-location}
 
 |                  |           |
 |------------------|-----------|
@@ -212,9 +174,9 @@ The `type` directive describes what type of source endpoint Packager needs to in
 | Required         | true (for `git` source types) |
 | Default value    | n/a       |
 
-The `location` direcetive describes the URI for non-`remote` source types (e.g. `git`). Available options are any valid git endpoint (i.e. http/https, or git/ssh endpoints). 
+The `location` direcetive describes the URI for non-`remote` source types (e.g. `git`). Available options are any valid git endpoint (i.e. http/https, or git/ssh endpoints).
 
-##### Reference (`reference`) {#packager-source-reference}
+#### Reference (`reference`) {#packager-source-reference}
 
 |                  |           |
 |------------------|-----------|
@@ -223,9 +185,9 @@ The `location` direcetive describes the URI for non-`remote` source types (e.g. 
 | Required         | false     |
 | Default value    | 'master'  |
 
-The `reference` directive describes the source code repository (i.e. git) reference containing the desired changeset (e.g. a specific branch, etc). Available options are any valid git reference (e.g. SHA checksum, branch name, etc). 
+The `reference` directive describes the source code repository (i.e. git) reference containing the desired changeset (e.g. a specific branch, etc). Available options are any valid git reference (e.g. SHA checksum, branch name, etc).
 
-##### Remote File (`remote_file`) {#packager-source-remote_file}
+#### Remote File (`remote_file`) {#packager-source-remote_file}
 
 |                  |           |
 |------------------|-----------|
@@ -236,7 +198,7 @@ The `reference` directive describes the source code repository (i.e. git) refere
 
 The `remote_file` directive describes a URL where source code can be located. Valid values are any URL pointing to a gzip tarball of source code.
 
-#### Dependencies (`dependencies`) {#packager-dependencies}
+### Dependencies (`dependencies`) {#packager-dependencies}
 
 |                  |           |
 |------------------|-----------|
@@ -247,7 +209,7 @@ The `remote_file` directive describes a URL where source code can be located. Va
 
 The `dependencies` section describes packages that should be generated by Packager that are required to build or run the in-scope package.
 
-##### Build Dependencies (`build`) {#packager-dependencies-build}
+#### Build Dependencies (`build`) {#packager-dependencies-build}
 
 |                  |           |
 |------------------|-----------|
@@ -256,9 +218,9 @@ The `dependencies` section describes packages that should be generated by Packag
 | Required         | false     |
 | Default value    | []        |
 
-The `build` directive describes a list (Array) of package names required to build the in-scope package. Valid values are any valid package name; valid packages can be provided by the system, or generated by Packager as dependent packages. 
+The `build` directive describes a list (Array) of package names required to build the in-scope package. Valid values are any valid package name; valid packages can be provided by the system, or generated by Packager as dependent packages.
 
-##### Runtime Dependencies (`runtime`) {#packager-dependencies-runtime}
+#### Runtime Dependencies (`runtime`) {#packager-dependencies-runtime}
 
 |                  |           |
 |------------------|-----------|
@@ -267,9 +229,9 @@ The `build` directive describes a list (Array) of package names required to buil
 | Required         | false     |
 | Default value    | []        |
 
-The `build` directive describes a list (Array) of package names required to run the in-scope package. Valid values are any valid package name; valid packages can be provided by the system, or generated by Packager as dependent packages. 
+The `build` directive describes a list (Array) of package names required to run the in-scope package. Valid values are any valid package name; valid packages can be provided by the system, or generated by Packager as dependent packages.
 
-##### Package Dependencies (`package`) {#packager-dependencies-package}
+#### Package Dependencies (`package`) {#packager-dependencies-package}
 
 _NOTE: this is an advanced concept; please proceed with caution._
 
@@ -282,7 +244,7 @@ _NOTE: this is an advanced concept; please proceed with caution._
 
 The `package` directive describes a list (Hash) of dependent packages Packager should generate as either build or runtime depencies of the in-scope package. Each dependent package requires a complete "package description" (combination of `source` + `dependencies` + `build` sections), and should be keyed by package name.
 
-EXAMPLE: 
+EXAMPLE:
 
 ~~~ json
 {
@@ -315,7 +277,7 @@ EXAMPLE:
 }
 ~~~
 
-#### Build (`build`) {#packager-build}
+### Build (`build`) {#packager-build}
 
 |                  |           |
 |------------------|-----------|
@@ -324,9 +286,9 @@ EXAMPLE:
 | Required         | true      |
 | Default value    | {}        |
 
-The `build` section provides instructions on how to generate the package, and includes optional directives for package installation configuration parameters (e.g. 'install_prefix'). 
+The `build` section provides instructions on how to generate the package, and includes optional directives for package installation configuration parameters (e.g. 'install_prefix').
 
-##### Name (`name`) {#packager-build-name}
+#### Name (`name`) {#packager-build-name}
 
 |                  |           |
 |------------------|-----------|
@@ -335,9 +297,9 @@ The `build` section provides instructions on how to generate the package, and in
 | Required         | false     |
 | Default value    | repository name or [`source`][`package`][<key>] name |
 
-The `name` directive provides the package name. 
+The `name` directive provides the package name.
 
-##### Version (`version`) {#packager-build-version}
+#### Version (`version`) {#packager-build-version}
 
 |                  |           |
 |------------------|-----------|
@@ -346,9 +308,9 @@ The `name` directive provides the package name.
 | Required         | false     |
 | Default value    | tag name (if available) or timestamp-based |
 
-The `version` directive provides the package version. 
+The `version` directive provides the package version.
 
-##### Template (`template`) {#packager-build-template}
+#### Template (`template`) {#packager-build-template}
 
 |                  |           |
 |------------------|-----------|
@@ -363,7 +325,7 @@ The `template` directive provides Packager with instructions on which template t
 * `erlang`
 * `rails`
 
-##### Commands (`commands`) {#packager-build-commands}
+#### Commands (`commands`) {#packager-build-commands}
 
 |                  |           |
 |------------------|-----------|
@@ -372,9 +334,9 @@ The `template` directive provides Packager with instructions on which template t
 | Required         | true      |
 | Default value    | n/a       |
 
-The `commands` directive describes which commands should be run to build both the in-scope package, as well as its dependent packages. 
+The `commands` directive describes which commands should be run to build both the in-scope package, as well as its dependent packages.
 
-EXAMPLE: 
+EXAMPLE:
 
 ~~~ json
 {
@@ -420,7 +382,7 @@ There are up to five (5) available arrays of commands described within this dire
 4. `commands:build`
 5. `commands:after:build`
 
-###### Before (`before`) {#packager-build-commands-before}
+##### Before (`before`) {#packager-build-commands-before}
 
 |                  |           |
 |------------------|-----------|
@@ -429,7 +391,7 @@ There are up to five (5) available arrays of commands described within this dire
 | Required         | false     |
 | Default value    | {}        |
 
-###### After (`after`) {#packager-build-commands-after}
+##### After (`after`) {#packager-build-commands-after}
 
 |                  |           |
 |------------------|-----------|
@@ -438,7 +400,7 @@ There are up to five (5) available arrays of commands described within this dire
 | Required         | false     |
 | Default value    | {}        |
 
-###### Build (`build`) {#packager-build-commands-build}
+##### Build (`build`) {#packager-build-commands-build}
 
 |                  |           |
 |------------------|-----------|
@@ -447,7 +409,7 @@ There are up to five (5) available arrays of commands described within this dire
 | Required         | true      |
 | Default value    | []        |
 
-##### Configure (`configure`) {#packager-build-configure}
+#### Configure (`configure`) {#packager-build-configure}
 
 |                  |           |
 |------------------|-----------|
@@ -456,9 +418,9 @@ There are up to five (5) available arrays of commands described within this dire
 | Required         | false     |
 | Default value    | {}        |
 
-The `configure` directive describes package installation configuration instructions that will be passed along to the package manager at install time. 
+The `configure` directive describes package installation configuration instructions that will be passed along to the package manager at install time.
 
-###### Install Prefix (`install_prefix`) {#packager-build-configure-install_prefix}
+##### Install Prefix (`install_prefix`) {#packager-build-configure-install_prefix}
 
 |                  |           |
 |------------------|-----------|
@@ -467,20 +429,20 @@ The `configure` directive describes package installation configuration instructi
 | Required         | false     |
 | Default value    | n/a       |
 
-The `install_prefix` directive describes where the in-scope package should be installed (if other than the system and/or package manager default location). Valid values are any unix-style path (e.g. "/opt/myapp" ). 
+The `install_prefix` directive describes where the in-scope package should be installed (if other than the system and/or package manager default location). Valid values are any unix-style path (e.g. "/opt/myapp" ).
 
-### The Packager DSL
+## The Packager DSL
 
-## Package Dependencies
+# Package Dependencies
 
 ## EXAMPLE: how to build a Rails app installer package (verbose)
 
-## Packager Templates
+# Packager Templates
 
 ## EXAMPLE: how to build a Rails app installer package (using the :rails template)
 
 ## EXAMPLE: how to build Redis
 
-## Advanced Topics
+# Advanced Topics
 
-### GitHub Prereleases
+## GitHub Prereleases
