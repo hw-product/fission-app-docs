@@ -2,6 +2,8 @@
 
 To get started using the Packager service, the first thing you need to do is enable a repository to notify Packager when a commit is pushed.
 
+To enable a repository, visit the Packager dashboard at https://packager.co/dashboard, select **"Enable Repository"** and input the name of the repository you wish to enable, then select "Enable". 
+
 # Integration Filters
 
 Rather than allow every commit on every branch of a repository to trigger package builds, Packager provides integration filters to control which commits should generate packages. These filters can be configured from the Packager dashboard, or directly from the GitHub repository (manually editing the ServiceHook URL).
