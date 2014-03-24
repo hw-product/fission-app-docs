@@ -242,7 +242,7 @@ _NOTE: this is an advanced concept; please proceed with caution._
 | Required         | false     |
 | Default value    | {}        |
 
-The `package` directive describes a list (Hash) of dependent packages Packager should generate as either build or runtime depencies of the in-scope package. Each dependent package requires a complete "package description" (combination of `source` + `dependencies` + `build` sections), and should be keyed by package name.
+The `package` directive describes a list (Hash) of dependent packages Packager should generate (and make available in your repository) as either build or runtime dependencies of the in-scope package. Each dependent package requires a complete "package description" (combination of `source` + `dependencies` + `build` sections), and should be keyed by package name. 
 
 EXAMPLE:
 
