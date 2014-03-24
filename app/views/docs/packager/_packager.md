@@ -2,7 +2,7 @@
 
 To get started using the Packager service, the first thing you need to do is enable a repository to notify Packager when a commit is pushed.
 
-To enable a repository, visit the Packager dashboard at https://packager.co/dashboard, select **"Enable Repository"** and input the name of the repository you wish to enable, then select "Enable". 
+To enable a repository, visit the Packager dashboard at https://packager.co/dashboard, select **"Enable Repository"** and input the name of the repository you wish to enable, then select "Enable".
 
 # Integration Filters
 
@@ -25,8 +25,6 @@ Packager can optionally filter on a specific branch (this is essentially how the
 Packager can optionally filter on tagged commits (regardless of which branch these are committed to).
 
     http://api.packager.co:9876/github-commit?tags=true
-
-NOTE: branch-based and tag-based filtering cannot be used together.
 
 # The .packager File {#packager-file}
 
