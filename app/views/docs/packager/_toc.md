@@ -1,4 +1,4 @@
-# Table of Contents
+### Table of Contents
 
 * [Getting Started](#getting-started)
 * [Integration Filters](#integration-filters)
@@ -28,5 +28,7 @@
       * [Version](#packager-build-version)
       * [Template](#packager-build-template)
       * [Commands](#packager-build-commands)
+        * [Before](#packager-build-commands-before)
+        * [After](#packager-build-commands-after)
+        * [Build](#packager-build-commands-build)
       * [Configure](#packager-build-configure)
-      

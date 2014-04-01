@@ -2,7 +2,7 @@
 
 To get started using the Packager service, the first thing you need to do is enable a repository to notify Packager when a commit is pushed.
 
-To enable a repository, visit the Packager dashboard at https://packager.co/dashboard, select **"Enable Repository"** and input the name of the repository you wish to enable, then select "Enable".
+To enable a repository, visit the Packager dashboard at <a href='/dashboard'>https://packager.co/dashboard</a>, select **"Enable Repository"** and input the name of the repository you wish to enable, then select "Enable".
 
 # Integration Filters
 
@@ -34,7 +34,7 @@ Packager is controlled by instructions described in a `.packager` configuration 
 
 _NOTE: The `.packager` configuration file is made up of four (4) primary sections, each containing a variety of "directives". Section and directive names are [snake_cased](http://en.wikipedia.org/wiki/Snake_case), and always case-sensitive (i.e. lower-case, as inferred by snake casing)._
 
-### Example {#json-example}
+### EXAMPLE {#json-example}
 
 ~~~ json
 {
@@ -244,7 +244,7 @@ _NOTE: this is an advanced concept; please proceed with caution._
 
 The `package` directive describes a list (Hash) of dependent packages Packager should generate (and make available in your repository) as either build or runtime dependencies of the in-scope package. Each dependent package requires a complete ["package description"](#package-description) (combination of `source` + `dependencies` + `build` sections), and should be keyed by package name.
 
-EXAMPLE:
+##### EXAMPLE
 
 ~~~ json
 {
@@ -336,7 +336,7 @@ The `template` directive provides Packager with instructions on which template t
 
 The `commands` directive describes which commands should be run to build both the in-scope package, as well as its dependent packages.
 
-EXAMPLE:
+##### EXAMPLE
 
 ~~~ json
 {
@@ -430,19 +430,3 @@ The `configure` directive describes package installation configuration instructi
 | Default value    | n/a       |
 
 The `install_prefix` directive describes where the in-scope package should be installed (if other than the system and/or package manager default location). Valid values are any unix-style path (e.g. "/opt/myapp" ).
-
-## The Packager DSL
-
-# Package Dependencies
-
-## EXAMPLE: how to build a Rails app installer package (verbose)
-
-# Packager Templates
-
-## EXAMPLE: how to build a Rails app installer package (using the :rails template)
-
-## EXAMPLE: how to build Redis
-
-# Advanced Topics
-
-## GitHub Prereleases
