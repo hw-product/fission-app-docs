@@ -32,3 +32,4 @@
         * [After](#packager-build-commands-after)
         * [Build](#packager-build-commands-build)
       * [Configure](#packager-build-configure)
+        * [Install Prefix](#packager-build-configure-install-prefix)

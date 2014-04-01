@@ -420,7 +420,7 @@ There are up to five (5) available arrays of commands described within this dire
 
 The `configure` directive describes package installation configuration instructions that will be passed along to the package manager at install time.
 
-##### Install Prefix (`install_prefix`) {#packager-build-configure-install_prefix}
+##### Install Prefix (`install_prefix`) {#packager-build-configure-install-prefix}
 
 |                  |           |
 |------------------|-----------|
