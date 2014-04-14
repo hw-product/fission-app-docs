@@ -95,7 +95,6 @@ The `version` directive describes the `platform` (i.e. linux distribution) versi
 * `12.10` (ubuntu)
 * `13.04` (ubuntu)
 * `13.10` (ubuntu)
-* `13.10` (ubuntu)
 * `5` (centos)
 * `6` (centos, debian)
 * `7` (debian)
