@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/heavywater/fission-app-docs'
   s.description = 'Fission application documentation pages'
   s.require_path = 'lib'
-  s.files = Dir['**/*']
+  s.files = Dir['{lib,app}/**/**/*'] + %w(fission-app-docs.gemspec)
   s.add_dependency 'kramdown'
 end
