@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.description = 'Fission application documentation pages'
   s.require_path = 'lib'
   s.files = Dir['{lib,app}/**/**/*'] + %w(fission-app-docs.gemspec)
-  s.add_dependency 'kramdown'
+  s.add_dependency 'kramdown-rails'
 end

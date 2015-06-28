@@ -3,10 +3,9 @@
 To get started using the Packager service, the first thing you need to do is
 enable a repository to notify Packager when a commit is pushed.
 
-To enable a repository, visit the Packager dashboard at <a
-href='/pipeline/packager/repositories'>https://packager.co/pipeline/packager\
-/repositories</a>, input the name of the repository you wish to enable, then
-select "Enable".
+To enable a repository, visit the Packager dashboard at
+<%= link_to('/pipeline/packager/repositories', 'https://packager.co/pipeline/packager/repositories') %>,
+input the name of the repository you wish to enable, then select "Enable".
 
 Once enabled, a new Packager job will be created for every tag created in the
 repository.
@@ -52,9 +51,9 @@ case-sensitive (i.e. lower-case, as inferred by snake casing)._
 |                  |           |
 |------------------|-----------|
 | Type             | section   |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | false     |
-| Default value(s) | {'platform': 'ubuntu', 'version': '14.04', 'package': 'deb', 'arch': 'amd64'} |
+| Default value(s) | `{"platform": "ubuntu", "version": "14.04", "package": "deb", "arch": "amd64"}` |
 
 The `target` section describes the platform (i.e. operating system) the
 package(s) is/are being built for.
@@ -64,9 +63,9 @@ package(s) is/are being built for.
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
-| Default value    | `ubuntu`  |
+| Default value    | `"ubuntu"`|
 
 The `platform` directive describes the name of the linux-distribution. Available
 platform options are as follows:
@@ -80,9 +79,9 @@ platform options are as follows:
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
-| Default value    | `14.04`   |
+| Default value    | `"14.04"` |
 
 The `version` directive describes the `platform` (i.e. linux distribution)
 version number. Available version numbers are as follows:
@@ -104,9 +103,9 @@ changed, the job will fail because 'centos 14.04' does not exist)._
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
-| Default value    | `deb`     |
+| Default value    | `"deb"`   |
 
 The `package` directive describes the package format. Available package formats
 are as follows:
@@ -124,9 +123,9 @@ etc)._
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
-| Default value    | `amd64`   |
+| Default value    | `"amd64"` |
 
 The `arch` directive describes the target system architecture (i.e. 64-bit or
 32-bit). Available options are as follows:
@@ -151,7 +150,7 @@ of dependent packages).
 |                  |           |
 |------------------|-----------|
 | Type             | section   |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | true/auto |
 | Default value    | n/a       |
 
@@ -168,9 +167,9 @@ ignored._
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | true      |
-| Default value    | git       |
+| Default value    | `"git"`   |
 
 The `type` directive describes what type of source endpoint Packager needs to
 interact with. Available options are as follows:
@@ -183,7 +182,7 @@ interact with. Available options are as follows:
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | true (for `git` source types) |
 | Default value    | n/a       |
 
@@ -196,9 +195,9 @@ git/ssh endpoints).
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
-| Default value    | 'master'  |
+| Default value    | `"master"`|
 
 The `reference` directive describes the source code repository reference (e.g.
 a "git ref") containing the desired changeset (e.g. a specific branch, etc).
@@ -210,7 +209,7 @@ etc).
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | true (for `remote` source types) |
 | Default value    | n/a       |
 
@@ -222,9 +221,9 @@ Valid values are any URL pointing to a gzip tarball of source code.
 |                  |           |
 |------------------|-----------|
 | Type             | section   |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | false     |
-| Default value    | {}        |
+| Default value    | `{}`      |
 
 The `dependencies` section describes packages that are required to build or run
 the in-scope package, including any custom dependency packages that Packager
@@ -235,9 +234,9 @@ should create.
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Array     |
+| Data Type        | `Array`   |
 | Required         | false     |
-| Default value    | []        |
+| Default value    | `[]`      |
 
 The `build` directive describes a list (Array) of package names required to
 build the in-scope package. Valid values are any valid package name available on
@@ -248,9 +247,9 @@ the `target`:`platform`; valid packages can be provided by the system.
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Array     |
+| Data Type        | `Array`   |
 | Required         | false     |
-| Default value    | []        |
+| Default value    | `[]`      |
 
 The `runtime` directive describes a list (Array) of package names required to
 run the in-scope package. Valid values are any valid package name available on
@@ -264,9 +263,9 @@ _NOTE: this is an advanced concept; please proceed with caution!_
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | false     |
-| Default value    | {}        |
+| Default value    | `{}`      |
 
 The `package` directive describes a list (Hash) of dependency packages that
 Packager should generate as runtime dependencies of the in-scope package. Each
@@ -311,9 +310,9 @@ dependent package requires a complete
 |                  |           |
 |------------------|-----------|
 | Type             | section   |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | true      |
-| Default value    | {}        |
+| Default value    | `{}`      |
 
 The `build` section provides instructions on how to generate the package, and
 includes optional directives for package installation configuration parameters
@@ -324,7 +323,7 @@ includes optional directives for package installation configuration parameters
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
 | Default value    | repository name or [`dependencies`][`package`][<key>] name |
 
@@ -335,7 +334,7 @@ The `name` directive provides the package name.
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
 | Default value    | tag name (if available) or timestamp-based |
 
@@ -346,9 +345,9 @@ The `version` directive provides the package version.
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
-| Default value    | 'generic' |
+| Default value    | `"generic"` |
 
 The `template` directive provides Packager with instructions on which Packager
 template to use. Packager templates provide `build` commands (specifically,
@@ -370,7 +369,7 @@ the latest set of available templates._
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | true      |
 | Default value    | n/a       |
 
@@ -429,9 +428,9 @@ directive, which are executed in the following order:
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | false     |
-| Default value    | {}        |
+| Default value    | `{}`      |
 
 List of commands to run before `depenedencies` are installed (if any), and/or
 before running `build` commands (including build commands provided by a
@@ -442,9 +441,9 @@ Packager `template`).
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | false     |
-| Default value    | {}        |
+| Default value    | `{}`      |
 
 List of commands to run after `depenedencies` are installed (if any), and/or
 after running `build` commands (including build commands provided by a
@@ -455,9 +454,9 @@ Packager `template`).
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Array     |
+| Data Type        | `Array`   |
 | Required         | true      |
-| Default value    | []        |
+| Default value    | `[]`      |
 
 List of commands to run to generate the contents of the in-scope package. These
 commands are only valid for the `generic` template (default behavior).
@@ -469,9 +468,9 @@ case any values provided here will be ignored.
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | Hash      |
+| Data Type        | `Hash`    |
 | Required         | false     |
-| Default value    | {}        |
+| Default value    | `{}`        |
 
 The `configure` directive describes package installation configuration
 instructions that will be passed along to the package manager at install time.
@@ -481,7 +480,7 @@ instructions that will be passed along to the package manager at install time.
 |                  |           |
 |------------------|-----------|
 | Type             | directive |
-| Data Type        | String    |
+| Data Type        | `String`  |
 | Required         | false     |
 | Default value    | n/a       |
 
