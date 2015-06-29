@@ -19,6 +19,7 @@ class DocsController < ApplicationController
         if(@doc_product)
           @docs_toc = "docs/#{@doc_product.internal_name}/toc"
           @docs_content = "docs/#{@doc_product.internal_name}/#{@doc_product.internal_name}"
+          @site_style = 'fission-app-docs'
         else
           not_found!
         end
