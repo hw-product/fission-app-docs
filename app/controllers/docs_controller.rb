@@ -20,8 +20,7 @@ class DocsController < ApplicationController
           @docs_toc = "docs/#{@doc_product.internal_name}/toc"
           @docs_content = "docs/#{@doc_product.internal_name}/#{@doc_product.internal_name}"
         else
-          flash[:error] = 'Failed to locate requested documentation!'
-          redirect_to root_url
+          not_found!
         end
       end
     end
