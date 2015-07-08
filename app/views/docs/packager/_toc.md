@@ -1,10 +1,6 @@
 ### Table of Contents
 
 * [Getting Started](#getting-started)
-* [Integration Filters](#integration-filters)
-  * [Default](#integration-filters-default)
-  * [Branch-based integration filtering](#integration-filters-branch)
-  * [Tag-based integration filtering](#integration-filters-tag)
 * [The .packager file](#packager-file)
   * [JSON](#packager-file-json)
     * [EXAMPLE](#packager-json-example)
@@ -31,5 +27,8 @@
         * [Before](#packager-build-commands-before)
         * [After](#packager-build-commands-after)
         * [Build](#packager-build-commands-build)
-      * [Configure](#packager-build-configure)
-        * [Install Prefix](#packager-build-configure-install-prefix)
+    * [Packaging](#packager-packaging)
+      * [EXAMPLE](#packager-packaging-example)
+      * [FPM options](#packager-fpm-options)
+* [Environment Variables](#packager-environment-variables)
+  * [Package Directory ($PKG_DIR)](#packager-environment-variables-package-directory)
