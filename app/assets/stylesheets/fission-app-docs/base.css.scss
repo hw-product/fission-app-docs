@@ -1,0 +1,16 @@
+.toc > ul {
+  @extend .list-unstyled;
+  padding-left: 0px !important;
+};
+
+.toc ul {
+  padding-left: 24px;
+};
+
+.documentation {
+  margin-bottom: 100px;
+};
+
+.documentation pre .line-numbers {
+  margin-right: 10px;
+};

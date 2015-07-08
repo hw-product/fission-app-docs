@@ -4,11 +4,14 @@ To get started using the Packager service, the first thing you need to do is
 enable a repository to notify Packager when a commit is pushed.
 
 To enable a repository, visit the Packager dashboard at
-<%= link_to('/pipeline/packager/repositories', 'https://packager.co/pipeline/packager/repositories') %>,
+<%= link_to('/pipeline/packager/repositories',
+'https://packager.co/pipeline/packager/repositories') %>,
 input the name of the repository you wish to enable, then select "Enable".
 
 Once enabled, a new Packager job will be created for every tag created in the
-repository.
+repository and packages will be published to the originating GitHub repository
+via <%= link_to('GitHub Releases',
+'https://help.github.com/articles/creating-releases/') %>.
 
 # The .packager File {#packager-file}
 
@@ -351,8 +354,8 @@ The `version` directive provides the package version.
 
 The `template` directive provides Packager with instructions on which Packager
 template to use. Packager templates provide `build` commands (specifically,
-`commands`:`build` commands; see <a href=#packager-build-commands>Commands</a>
-section, below).
+`commands`:`build` commands; see <%= link_to('Commands',
+'#packager-build-commands') %> section, below).
 
 Available options are as follows:
 
@@ -406,10 +409,10 @@ the in-scope package.
         "command 1",
         "command 2"
       ]
-    },
-    "configure": {
-      ...
     }
+  },
+  "packaging": {
+    ...
   }
 }
 ~~~
@@ -463,27 +466,70 @@ commands are only valid for the `generic` template (default behavior).
 Alternatively, these commands may be provided by Packager templates, in which
 case any values provided here will be ignored.
 
-#### Configure (`configure`) {#packager-build-configure}
+### Packaging (`packaging`) {#packager-packaging}
 
 |                  |           |
 |------------------|-----------|
-| Type             | directive |
+| Type             | section   |
 | Data Type        | `Hash`    |
 | Required         | false     |
-| Default value    | `{}`        |
+| Default value    | `{}`      |
 
-The `configure` directive describes package installation configuration
-instructions that will be passed along to the package manager at install time.
+The `packaging` section provides access to the underlying <%= link_to('fpm',
+'https://github.com/jordansissel/fpm') %> options. All options available via
+`fpm --help` (see: <%= link_to('https://github.com/jordansissel/fpm/wiki#usage',
+'https://github.com/jordansissel/fpm/wiki#usage') %>) are available as
+configuration directives within the the `packaging` section. Dashes are simply
+replaced with underscores. For example, the `fpm` option `--after-install` would
+be accessible at `after_install`.
 
-##### Install Prefix (`install_prefix`) {#packager-build-configure-install-prefix}
+#### EXAMPLE {#packager-packaging-example}
 
-|                  |           |
-|------------------|-----------|
-| Type             | directive |
-| Data Type        | `String`  |
-| Required         | false     |
-| Default value    | n/a       |
+~~~ json
+"packaging": {
+  "maintainer": "Heavy Water",
+  "vendor": "Heavy Water Operations, LLC",
+  "description": "Heavy Water Website",
+  "url": "http://heavywater.io",
+  "prefix": "/usr/share/nginx/www"
+}
+~~~
 
-The `install_prefix` directive describes where the in-scope package should be
-installed (if other than the system and/or package manager default location).
-Valid values are any unix-style path (e.g. "/opt/myapp" ).
+### Environment Variables {#packager-environment-variables}
+
+All Packager jobs run inside of lxc containers, and are run from the root
+directory in an unpacked clone of the originating source code repository. The
+following environment variables are available to leverage in the `.packager`
+configuration file:
+
+#### Package Directory (`$PKG_DIR`) {#packager-environment-variables-package-directory}
+
+|                  |                      |
+|------------------|----------------------|
+| Type             | environment variable |
+| Data Type        | `String`             |
+| Required         | false                |
+| Default value    | `/`                  |
+
+The `$PKG_DIR` environment variable provides a reference to the root directory
+of the target package. When used without providing a install `prefix` (via the
+`fpm` passthrough options; see: <%= link_to('Packaging', '#packager-packaging')
+%> above, and <%= link_to('https://github.com/jordansissel/fpm/wiki#usage',
+'https://github.com/jordansissel/fpm/wiki#usage') %>), `$PKG_DIR` is also the
+equivalent of the root directory (e.g. `/`) of the target system.
+
+For example, outputting contents of `build` commands to `$PKG_DIR/usr/local/`
+would result in those contents being installed on the target system in the
+`/usr/local/` directory (including any subdirectories created during the build).
+
+Using `$PKG_DIR` to indicate where package contents should be installed has some
+advantages over the `"packaging": { "prefix": "/path/to/install/dir/"}`
+directive, including providing the ability to install package contents to
+multiple branching locations on the target system.
+
+_NOTE: setting the `packaging:prefix` directive modifies the default value of
+`$PKG_DIR`. For example, outputting contents of `build` commands to
+`$PKG_DIR/usr/local/` **-AND-** setting the `packaging:prefix` directive to
+`/path/to/install/dir` would result in the package contents getting install on
+the target system at `/path/to/install/dir/usr/local/*` instead of
+`/usr/local/*`._

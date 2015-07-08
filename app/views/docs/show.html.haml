@@ -1,8 +1,10 @@
 - content_for(:container) do
   .row
-    .col-md-4
-      = render :partial => @docs_toc
-    .col-md-8
-      = render :partial => @docs_content
+    .col-md-3
+      .toc
+        = render :partial => @docs_toc
+    .col-md-9
+      .documentation
+        ~ render :partial => @docs_content
 
 = render :partial => 'layouts/container'
