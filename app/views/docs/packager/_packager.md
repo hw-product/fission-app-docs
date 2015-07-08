@@ -354,8 +354,8 @@ The `version` directive provides the package version.
 
 The `template` directive provides Packager with instructions on which Packager
 template to use. Packager templates provide `build` commands (specifically,
-`commands`:`build` commands; see <a href=#packager-build-commands>Commands</a>
-section, below).
+`commands`:`build` commands; see <%= link_to('Commands',
+'#packager-build-commands') %> section, below).
 
 Available options are as follows:
 
