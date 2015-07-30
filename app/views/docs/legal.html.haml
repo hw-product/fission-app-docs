@@ -1,0 +1,4 @@
+- content_for(:panel) do
+  = render :partial => @content
+
+= render :partial => 'layouts/container', :locals => {:panel => {:heading => @title, :panel_class => 'legal'}}
